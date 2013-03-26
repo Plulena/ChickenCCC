@@ -107,7 +107,7 @@ public class CameraWork : MonoBehaviour {
 			case 4:
 				toCamera.orthographicSize = 4;
 				toCamera.position = position;
-				toCamera.rotation = GameObject.Find("tracingCamera5").GetComponent<Camera>().transform.rotation;
+				toCamera.rotation = GameObject.Find("tracingCamera4").GetComponent<Camera>().transform.rotation;
 				break;
 			case 0:
 				toCamera.orthographicSize = 10;
@@ -118,47 +118,12 @@ public class CameraWork : MonoBehaviour {
 		}
 	}
 	
-	/*void OnGUI() {
-		if( GUI.Button(new Rect(0, 0, 100, 100), "" + cameraNumber)) {
-			cameraNumber = (cameraNumber+1)%5;
-			interpolationTimer = 0.0f;
-			switch(cameraNumber) {
-				case 1:
-					prevPosition = GameObject.Find("backCamera").GetComponent<Camera>().transform.position;
-					nextPosition = GameObject.Find("tracingCamera1").GetComponent<Camera>().transform.position;
-					prevRotation = GameObject.Find("backCamera").GetComponent<Camera>().transform.rotation;
-					nextRotation = GameObject.Find("tracingCamera1").GetComponent<Camera>().transform.rotation;
-					prevSize = 12;
-					nextSize = 3;
-					break;
-				case 2:
-					prevPosition = GameObject.Find("tracingCamera1").GetComponent<Camera>().transform.position;
-					nextPosition = GameObject.Find("tracingCamera2").GetComponent<Camera>().transform.position;
-					prevRotation = GameObject.Find("tracingCamera1").GetComponent<Camera>().transform.rotation;
-					nextRotation = GameObject.Find("tracingCamera2").GetComponent<Camera>().transform.rotation;
-					prevSize = 3;
-					break;
-				case 3:
-					prevPosition = GameObject.Find("tracingCamera2").GetComponent<Camera>().transform.position;
-					nextPosition = GameObject.Find("tracingCamera3").GetComponent<Camera>().transform.position;
-					prevRotation = GameObject.Find("tracingCamera2").GetComponent<Camera>().transform.rotation;
-					nextRotation = GameObject.Find("tracingCamera3").GetComponent<Camera>().transform.rotation;
-					break;
-				case 4:
-					prevPosition = GameObject.Find("tracingCamera3").GetComponent<Camera>().transform.position;
-					nextPosition = GameObject.Find("tracingCamera4").GetComponent<Camera>().transform.position;
-					prevRotation = GameObject.Find("tracingCamera3").GetComponent<Camera>().transform.rotation;
-					nextRotation = GameObject.Find("tracingCamera4").GetComponent<Camera>().transform.rotation;
-					break;
-				case 0:
-					prevPosition = GameObject.Find("tracingCamera4").GetComponent<Camera>().transform.position;
-					nextPosition = GameObject.Find("backCamera").GetComponent<Camera>().transform.position;
-					prevRotation = GameObject.Find("tracingCamera4").GetComponent<Camera>().transform.rotation;
-					nextRotation = GameObject.Find("backCamera").GetComponent<Camera>().transform.rotation;
-					prevSize = 3;
-					nextSize = 12;
-					break;
-			}
-		}
-	}*/
+	void OnGUI() {
+		if( GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetNumOfPlayer() == 0 ) return;
+		int currentPlayerNumber = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetCurrentPlayerNumber();
+		int currentPlayerPosition = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetPositionAtBoard(currentPlayerNumber);
+		int number = (currentPlayerPosition+1)%12+1;
+		GUI.DrawTexture(new Rect( 0.83f*Screen.width, 0.76f*Screen.height, 0.16f*Screen.width, 0.24f*Screen.height), Resources.Load("chiken_ccc__board_"+number) as Texture);
+		GUI.DrawTexture(new Rect( 0.83f*Screen.width, 0.72f*Screen.height, 0.16f*Screen.width, 0.04f*Screen.height), Resources.Load("next") as Texture);
+	}
 }

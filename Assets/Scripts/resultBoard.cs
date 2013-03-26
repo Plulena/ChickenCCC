@@ -4,6 +4,7 @@ using System.Collections;
 public class resultBoard : MonoBehaviour {
 	public AudioClip yeahSound;
 	public AudioClip oopsSound;
+	public AudioClip victorySound;
 	int setWinner = -1;
 	float quitTimer = 0.0f;
 	
@@ -11,6 +12,7 @@ public class resultBoard : MonoBehaviour {
 	void Start () {
 		yeahSound = Resources.Load("Sounds/yeah") as AudioClip;
 		oopsSound = Resources.Load("Sounds/oops") as AudioClip;
+		victorySound = Resources.Load("Sounds/victory") as AudioClip;
 	}
 	
 	// Update is called once per frame
@@ -41,6 +43,7 @@ public class resultBoard : MonoBehaviour {
 	
 	public void WinTheGame(int playerNumber) {
 		setWinner = playerNumber;
+		audio.PlayOneShot(victorySound);
 	}
 	
 	void OnGUI() {

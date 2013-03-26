@@ -40,6 +40,10 @@ public class Runner : NetworkTool {
 		return currentPlayerNumber;
 	}
 	
+	public int GetNumOfPlayer() {
+		return numOfPlayer;
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		secondTimer += Time.deltaTime;
@@ -68,10 +72,10 @@ public class Runner : NetworkTool {
 	}
 	
 	void OnGUI() {
-		for( int counter = 0; counter < numOfPlayer; counter++ ) {
+		/*for( int counter = 0; counter < numOfPlayer; counter++ ) {
 			//GUI.TextField(new Rect(0,30*counter,350,30), "player " + (counter+1) + playerInfoList[counter].identifier + " joined.");
 			GUI.TextField(new Rect(0,30*counter,350,30), "player " + (counter+1) + " : " + playerInfoList[counter].currentBoardPosition);
-		}
+		}*/
 	}
 	// Go to the next board...
 	public void GoNext () {
@@ -247,9 +251,9 @@ public class Runner : NetworkTool {
 			playerInfoList[1].currentBoardPosition = 8;
 			playerInfoList[2].currentBoardPosition = 16;
 			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.localPosition = new Vector3(0.433f, 0, -0.25f);
-			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.Rotate(0, 75, 0);
+			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.Rotate(0, 300, 0);
 			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.localPosition = new Vector3(-0.433f, 0, -0.25f);
-			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.Rotate(0, 15, 0);
+			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.Rotate(0, 60, 0);
 			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().findChildWithName("Tail_Red").SetActive(false);
 			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().findChildWithName("Tail_Blue").SetActive(false);
 			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().findChildWithName("Tail_Yellow").SetActive(false);
@@ -259,11 +263,11 @@ public class Runner : NetworkTool {
 			playerInfoList[2].currentBoardPosition = 12;
 			playerInfoList[3].currentBoardPosition = 18;
 			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.localPosition = new Vector3(0.5f, 0, 0);
-			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.Rotate(0, 82.5f, 0);
+			GameObject.Find("chiken_ccc__runner2").GetComponent<Runner>().transform.Rotate(0, 330, 0);
 			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.localPosition = new Vector3(0, 0, -0.5f);
-			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.Rotate(0, 75, 0);
+			GameObject.Find("chiken_ccc__runner3").GetComponent<Runner>().transform.Rotate(0, 300, 0);
 			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().transform.localPosition = new Vector3(-0.5f, 0, 0);
-			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().transform.Rotate(0, 22.5f, 0);
+			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().transform.Rotate(0, 90, 0);
 			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().findChildWithName("Tail_Red").SetActive(false);
 			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().findChildWithName("Tail_Blue").SetActive(false);
 			GameObject.Find("chiken_ccc__runner4").GetComponent<Runner>().findChildWithName("Tail_Green").SetActive(false);
