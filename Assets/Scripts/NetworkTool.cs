@@ -32,6 +32,7 @@ public class NetworkTool : MonoBehaviour {
 	public int connect() {
 		identifier = SystemInfo.deviceUniqueIdentifier;
 		Debug.Log("identifier:"+identifier);
+		register();
 		Dictionary<string, string> dictionary = new Dictionary<string, string>();
 		dictionary.Add("latitude", "1.0");
 		dictionary.Add("longitude", "1.0");
@@ -41,6 +42,14 @@ public class NetworkTool : MonoBehaviour {
 		GET (getURL(channelPort,"") + "?id="+identifier);
 		
 		return 0;
+	}
+	
+	public void register() {
+		Dictionary<string, string> dictionary = new Dictionary<string, string>();
+		dictionary.Add("uid", identifier);
+		dictionary.Add("name", identifier);
+		dictionary.Add("device", identifier);
+		POST(getURL(gamePort, "setUser"), dictionary);
 	}
 	
 	public WWW GET(string url) {

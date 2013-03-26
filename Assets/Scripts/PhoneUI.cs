@@ -18,7 +18,7 @@ public class PhoneUI : NetworkTool {
 	
 	void OnGUI() {
 		
-		int currentBoardNumber = 0;//GameObject.Find("Groucho").GetComponent<NewBehaviourScript>().GetPositionAtBoard()%12;
+		int currentBoardNumber = 0;
 		
 		if( GUI.Button(new Rect( 0.0f*Screen.width+0,  0.0f*Screen.height+0, 0.25f*Screen.width, 0.33f*Screen.height), Resources.Load("chiken_ccc__board_1") as Texture)) {
 			buttonNumber = 1;
