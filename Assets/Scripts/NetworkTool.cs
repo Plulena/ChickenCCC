@@ -11,20 +11,7 @@ public class NetworkTool : MonoBehaviour {
 	protected int positionValue = 0;
 	protected string identifier;
 	
-	void testCode() {
-		Dictionary<string, string> dictionary = new Dictionary<string, string>();
-		dictionary.Add("latitude", "1.0");
-		dictionary.Add("longitude", "1.0");
-		dictionary.Add("gameCode", "10010");
-		dictionary.Add("action", "shakeUpDown");
-		
-		//POST(url, dictionary);
-		//GET ("http://211.33.121.174:10001/?id=kkk");
-		
-		//GET ("http://211.33.121.174:10001/send?id=kkk&key=Hello&value=11608064");
-		
-	}
-	
+	// make url dynamically.
 	public string getURL(int port, string page) {
 		return "http://" + host + ":" + port + "/" + page;	
 	}
@@ -52,12 +39,14 @@ public class NetworkTool : MonoBehaviour {
 		POST(getURL(gamePort, "setUser"), dictionary);
 	}
 	
+	// Http method for GET
 	public WWW GET(string url) {
 		WWW www = new WWW (url);
     	StartCoroutine (WaitForRequest (www));
     	return www; 
     }
-
+	
+	// Http method for POST
 	public WWW POST(string url, Dictionary<string,string> post) {
     	WWWForm form = new WWWForm();
     	foreach(KeyValuePair<string,string> post_arg in post) {
@@ -72,7 +61,8 @@ public class NetworkTool : MonoBehaviour {
     	return www; 
     }
 
-     public virtual IEnumerator WaitForRequest(WWW www) {
+	// Make information from received data.
+    public virtual IEnumerator WaitForRequest(WWW www) {
         yield return www;
 		
         // check for errors
@@ -91,7 +81,6 @@ public class NetworkTool : MonoBehaviour {
 					type = Reader.Value != null ? Reader.Value.GetType().ToString() : "";
 					valueString = type != "" ? Reader.Value.ToString() : "";
 					if( rss < long.Parse(valueString) ){
-						
 						rss = long.Parse(valueString);
 						Debug.Log("RSS: " + rss);
 					}

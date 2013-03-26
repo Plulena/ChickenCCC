@@ -3,12 +3,7 @@ using System.Collections;
 
 public class turnPointerScript : MonoBehaviour {
 	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
+	// update turn pointer's position to the top of currently playinh player.
 	void Update () {
 		int currentPlayerNumber = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetCurrentPlayerNumber();
 		string currentRunner = "chiken_ccc__runner"+(currentPlayerNumber+1);

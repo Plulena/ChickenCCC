@@ -53,7 +53,6 @@
      <Compile Include="Assets\JSON library\Lexer.cs" />
      <Compile Include="Assets\JSON library\ParserToken.cs" />
      <Compile Include="Assets\Scripts\CameraWork.cs" />
-     <Compile Include="Assets\Scripts\GameGUI.cs" />
      <Compile Include="Assets\Scripts\NetworkTool.cs" />
      <Compile Include="Assets\Scripts\PhoneUI.cs" />
      <Compile Include="Assets\Scripts\Runner.cs" />

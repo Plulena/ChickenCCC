@@ -54,16 +54,22 @@ public class Runner : NetworkTool {
 		
 		string runnerName = "chiken_ccc__runner" + (currentPlayerNumber+1);
 		
+		// if current player's turn,
 		if( name.Equals(runnerName) && playerInfoList[currentPlayerNumber].identifier == latestIdentifier) {
+			
 			int currentBoardNumber = playerInfoList[currentPlayerNumber].currentBoardPosition%12;
+			
+			// 1. if the result is correct, go to next position.
 			if( positionValue == (playerInfoList[currentPlayerNumber].currentBoardPosition+1)%12+1 ) {
 				GoNext();
 				positionValue = -1;
+			// 2. else turn to next player.
 			} else if(positionValue > 0 ) {
 				GameObject.Find("resultBoard").GetComponent<resultBoard>().ChangeWrongAnswer(positionValue);
 				GameObject.Find("mainCamera").GetComponent<CameraWork>().ChangeCamera(0);
 				currentPlayerNumber = (currentPlayerNumber+1)%numOfPlayer;
 				positionValue = -1;
+			// we don't use this condition actually.
 			} else if(positionValue == 0 ) {
 				GameObject.Find("resultBoard").GetComponent<resultBoard>().ChangeDefault();
 			}
@@ -72,11 +78,13 @@ public class Runner : NetworkTool {
 	}
 	
 	void OnGUI() {
+		// Just for debug.
 		/*for( int counter = 0; counter < numOfPlayer; counter++ ) {
 			//GUI.TextField(new Rect(0,30*counter,350,30), "player " + (counter+1) + playerInfoList[counter].identifier + " joined.");
 			GUI.TextField(new Rect(0,30*counter,350,30), "player " + (counter+1) + " : " + playerInfoList[counter].currentBoardPosition);
 		}*/
 	}
+	
 	// Go to the next board...
 	public void GoNext () {
 		if( isFlying == false ) {
@@ -84,7 +92,9 @@ public class Runner : NetworkTool {
 			if(playerInfoList[currentPlayerNumber].currentBoardPosition >= 24) {
 				playerInfoList[currentPlayerNumber].currentBoardPosition = 0;
 			}
+			// check if runners are on same position.
 			checkRunnersOnSamePosition();
+			// check if runner completes winning condition.
 			checkWin();
 			GameObject.Find("resultBoard").GetComponent<resultBoard>().ChangeTexture(playerInfoList[currentPlayerNumber].currentBoardPosition%12+1);
 			transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 15);
@@ -95,6 +105,7 @@ public class Runner : NetworkTool {
 	}
 	
 	public void GoNextByIntersection() {
+		// if it doesn't fly, we don't need to interpolate.
 		if( isFlying == false ) return;
 
 		interpolationTime += 2.0f*Time.deltaTime;
@@ -111,6 +122,8 @@ public class Runner : NetworkTool {
 		}
 	}
 	
+	// Make information from received data. overrided.
+	// parse the json.
 	public override IEnumerator WaitForRequest(WWW www) {
         yield return www;
 		

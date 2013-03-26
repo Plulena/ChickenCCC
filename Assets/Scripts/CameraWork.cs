@@ -1,22 +1,27 @@
 using UnityEngine;
 using System.Collections;
 
+// Camera can be identified as "identifier"
+
+
+
 struct CameraInfo {
 	public int identifier;
-	public Vector3 position;
-	public Quaternion rotation;
-	public float orthographicSize;
+	public Vector3 position;		// where it is located.
+	public Quaternion rotation;		// how much rotated from axis.
+	public float orthographicSize;	// how far from runner.
 };
 
+// Camera for tracing. 
+// It traces players' position.
 public class CameraWork : MonoBehaviour {
 	float interpolationTimer = 1.0f;
 	CameraInfo fromCamera, toCamera;
-	//Quaternion prevRotation, nextRotation;
-	//Vector3 prevPosition, nextPosition;
-	//float prevSize, nextSize;
 	
 	// Use this for initialization
 	void Start () {
+		
+		// 1. off all cameras excepts mainCamera.
 		GameObject.Find("backCamera").GetComponent<Camera>().enabled = false;
 		GameObject.Find("tracingCamera1").GetComponent<Camera>().enabled = false;
 		GameObject.Find("tracingCamera2").GetComponent<Camera>().enabled = false;
@@ -25,6 +30,7 @@ public class CameraWork : MonoBehaviour {
 		GameObject.Find("mainCamera").GetComponent<Camera>().enabled = true;
 		
 		
+		// 2. set fromCamera, toCamera as backCamera's Information.
 	 	fromCamera = new CameraInfo();
 		toCamera = new CameraInfo();
 		fromCamera.identifier = toCamera.identifier = 0;
@@ -35,17 +41,21 @@ public class CameraWork : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		// If we need to trace another thing,
 		if( interpolationTimer < 1.0f ) {
 			if( toCamera.identifier != 0 )
 				interpolationTimer += Time.deltaTime;
 			else
 				interpolationTimer += Time.deltaTime;
 			
+			// interpolates three information(orthographic size, position and rotation).
 			camera.orthographicSize = Mathf.Lerp(fromCamera.orthographicSize, toCamera.orthographicSize, interpolationTimer);
 			transform.position = Vector3.Lerp(fromCamera.position, toCamera.position, interpolationTimer);
 			transform.rotation = Quaternion.Slerp(fromCamera.rotation, toCamera.rotation, interpolationTimer);
 			
 		} else {
+			// else trace toCamera's position.
 			interpolationTimer = 1.0f;
 			camera.orthographicSize = Mathf.Lerp(fromCamera.orthographicSize, toCamera.orthographicSize, interpolationTimer);
 			switch(toCamera.identifier) {
@@ -74,15 +84,19 @@ public class CameraWork : MonoBehaviour {
 	}
 	
 	public void ChangeCamera(int toCameraIdentifier) {
+		// this statement means "same camera". So, we don't need to replace Cameras.
 		if( toCamera.identifier == toCameraIdentifier ) return;
 		
 		
+		// fromCamera also means toCamera's previous information.
+		// 1. Set fromCamera information.
 		fromCamera.identifier = toCamera.identifier;
 		fromCamera.orthographicSize = toCamera.orthographicSize;
 		fromCamera.position = transform.position;
 		fromCamera.rotation = transform.rotation;
-		toCamera.identifier = toCameraIdentifier;
 		
+		// 2. Set toCamera information by current player's position.
+		toCamera.identifier = toCameraIdentifier;
 		int currentPlayerNumber = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetCurrentPlayerNumber();
 		int currentPlayerPosition = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetPositionAtBoard(currentPlayerNumber);
 		float rotationValueByTime = 3.14f/12*(6-(currentPlayerPosition+1)%24);
@@ -118,6 +132,7 @@ public class CameraWork : MonoBehaviour {
 		}
 	}
 	
+	// See next image to go.
 	void OnGUI() {
 		if( GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetNumOfPlayer() == 0 ) return;
 		int currentPlayerNumber = GameObject.Find("chiken_ccc__runner1").GetComponent<Runner>().GetCurrentPlayerNumber();

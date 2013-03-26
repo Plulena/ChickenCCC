@@ -24,28 +24,33 @@ public class resultBoard : MonoBehaviour {
 			Application.Quit();
 	}
 	
+	// Correct Answer
 	public void ChangeTexture(int number) {
 		Texture selectedTexture = Resources.Load("chiken_ccc__board_"+number) as Texture;
 		audio.PlayOneShot(yeahSound);
 		renderer.material.mainTexture = selectedTexture;
 	}
 	
+	// Wrong Answer
 	public void ChangeWrongAnswer(int number) {
 		Texture selectedTexture = Resources.Load("chiken_ccc__board_"+number) as Texture;
 		audio.PlayOneShot(oopsSound);
 		renderer.material.mainTexture = selectedTexture;
 	}
 	
+	// Default Image. Same as initiation.
 	public void ChangeDefault() {
 		Texture defaultTexture = Resources.Load("main_chicken") as Texture;
 		renderer.material.mainTexture = defaultTexture;
 	}
 	
+	// Win the Game by currently playing member.
 	public void WinTheGame(int playerNumber) {
 		setWinner = playerNumber;
 		audio.PlayOneShot(victorySound);
 	}
 	
+	// See who is the winner!
 	void OnGUI() {
 		if( setWinner == -1 ) return;
 		
